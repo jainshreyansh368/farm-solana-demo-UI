@@ -8,6 +8,7 @@ import { router_stake } from './components/router_stake';
 import { router_unstake } from './components/router_unstake';
 import { farm_harvest } from './components/farm_harvest';
 import { router_harvest } from './components/router_harvest';
+import { vault_spl_init } from './components/vault_spl_init';
 
 
 const App = () => { 
@@ -85,6 +86,9 @@ const App = () => {
         <button onClick = {() => farm_harvest(pubKey, amount)}>farm harvest</button>
         <br/><br/><br/><br/>
         <button onClick = {() => router_harvest(pubKey)}>touter harvest</button>
+        
+        <br/><br/><br/><br/>
+        <button onClick = {() => vault_spl_init(pubKey)}>vault spl init</button>
         
       </div>
       ) 
