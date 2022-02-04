@@ -52,6 +52,8 @@ export const ESCROW_ACCOUNT_DATA_LAYOUT = BufferLayout.struct([
     publicKey("lpmint"),
     uint64("totalvalulocked"),
     uint64("allocpoint"),
+    uint64("reardpershare"),
+    uint64("lastupdated"),
 
   ]);
 
@@ -64,4 +66,6 @@ export const ESCROW_ACCOUNT_DATA_LAYOUT = BufferLayout.struct([
     uint64("totalreward"),
     uint64("rewardbal"),
     uint64("starttime"),
+    uint64("cranktime"),
+    uint64("rewarddebt"),
     ]);

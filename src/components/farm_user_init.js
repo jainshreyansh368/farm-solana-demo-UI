@@ -14,87 +14,18 @@ import {
   
   export const farm_user_init = async(user) => {
   
-    console.log(user , "   lister publickey");
-    // const farmprogramID = new PublicKey("33BfahUCKJhxberGzKc1fHk7aAQLbbrMsMNespwxgJ8L")
-    
-    // const farmstate = new PublicKey("tYxNvLa5LD9B6W2vT38LNntghLUfu7sZAZsEkaYaoUt");
-
-    // const newAcc = new Keypair();
-    // console.log(newAcc.publicKey.toString(), "*******Farm state account account ...");
-
-    // const seed = 'farm_seed';
-    // const init_pubkey = await PublicKey.createWithSeed(
-    //   user,
-    //   seed,
-    //   farmprogramID,
-    // );
-
-    // console.log("publickey with seed: ", init_pubkey);
+    console.log(user.toString() , "   lister publickey");
 
 
-    // const PDA = await PublicKey.findProgramAddress(
-    //     [
-    //       Buffer.from("UserCheck"),
-    //       user.toBuffer(),
-    //     ],
-    //     farmprogramID,
-    //   );
-    //   console.log("PDA", PDA[0].toString());
-
-
-    // // keypair using seed
-    // const seed = 'farm_seed';
-    // const uint8data = Buffer.from(
-    //     Uint8Array.of(
-    //             user,
-    //             seed,
-    //             farmprogramID,
-    //             ));
-
-    // console.log(sizeOf(uint8data));
-
-
-    // const newAcc = Keypair.fromSeed(
-    //     Buffer.from("UserCheck")
-    //     );
-
-    //     console.log("new acc : ", newAcc.publicKey());
-
-
-// //create user farming account
-// const newAcc = new Keypair();
-
-// const createUserAccountIx = SystemProgram.createAccount({
-  //   programId: farmprogramID,
-  //   space: FARM_USER_DATA_LAYOUT.span,
-  //   lamports: await connection.getMinimumBalanceForRentExemption(
-  //     FARM_USER_DATA_LAYOUT.span
-  //   ),
-  //   fromPubkey: user,
-  //   newAccountPubkey: init_pubkey,
-  // }); 
-
-//   //console.log("new state acc : ", newAcc.publicKey.toString());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const USER_SEED = 'farm_user_new_seed';
+  const USER_SEED = [
+      farm_state.toBuffer(),
+    ]
   const user_state_pubkey = await PublicKey.createWithSeed(
     user,
     USER_SEED,
     farmprogramID,
   );
+  console.log("user state account : **********  :",user_state_pubkey.toString());
 
   // Check if the greeting account has already been created
   const userStateAccount = await connection.getAccountInfo(user_state_pubkey);
@@ -151,27 +82,7 @@ import {
         );
         await new Promise((resolve) => setTimeout(resolve, 2000));
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    //   console.log(newAcc.publicKey.toString(), "*******Farm state account account ...");
-      //  //console.log(tempXTokenAccountKeypair.publicKey.toString(), "*******temp account ...");
-      //  console.log("****amount =", amount);
-      
-      console.log(user_state_pubkey.toString(), "*******Farm state account account ...");
+      console.log(user_state_pubkey.toString(), "*******Farm user account  ...");
   
     console.log(
       `FARM USER successfully initialized \n`

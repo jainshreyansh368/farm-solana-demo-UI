@@ -29,11 +29,13 @@ export const farm_init = async(user) => {
    
     const PDA = await PublicKey.findProgramAddress(
       [
-        Buffer.from("FarmStatePrefix"),
+        Buffer.from("ValFarmMain"),
         reward_mint.toBuffer(),
       ],
       farmprogramID,
     );
+    // change 
+    // in smart contract
     const PDA_tokenAccount = await getOrCreateAssociatedAccount(PDA[0], reward_mint, user);
 
     const owner_reward_token_account = await getOrCreateAssociatedAccount(user, reward_mint, user);

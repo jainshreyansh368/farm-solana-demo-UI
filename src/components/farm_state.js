@@ -15,16 +15,16 @@ import { farmprogramID, programFarmData, lp_mint, amm_id } from "./ids";
 const BN = require("bn.js");
 
 
-export const farm_state = async(user) => {
+export const farm_state = async(user, alloc_point) => {
 
   console.log(user , "   lister publickey")
 
     
-//create escrow account
+//create farm account
     const newAcc = new Keypair();
 
     // const farmprogramID = new PublicKey("6i9RUZAny38fh4Lthfge7shEYeXoGU5cEi9JEvMFDYsa")
-    const createEscrowAccountIx = SystemProgram.createAccount({
+    const createFarmAccountIx = SystemProgram.createAccount({
         programId: farmprogramID,
         space: FARM_STATE_LAYOUT.span,
         lamports: await connection.getMinimumBalanceForRentExemption(
@@ -51,15 +51,15 @@ export const farm_state = async(user) => {
         // pda token account
       const PDA_tokenAccount = await getOrCreateAssociatedAccount(PDA[0], lp_mint, user);
 
-//init escrow account
+//init farm account
 
 
-const initEscrowIx = new TransactionInstruction({
+const initFarmIx = new TransactionInstruction({
   programId: farmprogramID,
   keys: [
     { pubkey: user, isSigner: true, isWritable: false },
 
-    { pubkey: programFarmData, isSigner: false, isWritable: false },
+    { pubkey: programFarmData, isSigner: false, isWritable: true },
     { pubkey: newAcc.publicKey, isSigner: true, isWritable: true },
 
     { pubkey: amm_id, isSigner: false, isWritable: false },
@@ -72,15 +72,16 @@ const initEscrowIx = new TransactionInstruction({
 
   ],
   data: Buffer.from(
-    Uint8Array.of(1))
+    Uint8Array.of(1, ...new BN(alloc_point).toArray("le", 8))
+  ),
 });
 
 console.log([newAcc],"new acc keypir.........");
 
       await sendTxUsingExternalSignature(
         [
-          createEscrowAccountIx,
-          initEscrowIx
+          createFarmAccountIx,
+          initFarmIx,
         ],
         connection,
         null,
@@ -94,17 +95,17 @@ console.log([newAcc],"new acc keypir.........");
     //  console.log("****amount =", amount);
 
   // sleep to allow time to update
-  const escrowAccount = await connection.getAccountInfo(
+  const farmAccount = await connection.getAccountInfo(
     newAcc.publicKey
   );
-  console.log(escrowAccount, "******farm state account......")
+  console.log(farmAccount, "******farm state account......")
 
   console.log(
-    `FARM successfully initialized \n`
+    `FARM State successfully initialized \n`
   );
 
   console.log(
-    escrowAccount,"*****Escrow account...."
+    farmAccount,"*****farm account...."
   );
   console.log("");
 

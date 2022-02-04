@@ -7,7 +7,7 @@ import {
 import { connection } from './connection'
 import { sendTxUsingExternalSignature } from './externalwallet'
 import { getOrCreateAssociatedAccount } from "./getOrCreateAssociatedAccount";
-import { farmprogramID, reward_mint } from "./ids";
+import { farmprogramID, reward_mint , user_state_data_temp_acc, farm_state} from "./ids";
 
 const BN = require("bn.js");
 
@@ -44,8 +44,8 @@ const initDepositIx = new TransactionInstruction({
   programId: farmprogramID,
   keys: [
     { pubkey: user, isSigner: true, isWritable: true },
-    // { pubkey: user_state_data, isSigner: false, isWritable: true },
-    // { pubkey: farm_state, isSigner: false, isWritable: true },
+    { pubkey: user_state_data_temp_acc, isSigner: false, isWritable: true },
+    { pubkey: farm_state, isSigner: false, isWritable: true },
 
     { pubkey: user_tokenAccount, isSigner: false, isWritable: true },
     { pubkey: PDA[0], isSigner: false, isWritable: false },

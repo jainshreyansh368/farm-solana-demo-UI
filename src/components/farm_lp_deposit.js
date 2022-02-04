@@ -1,13 +1,16 @@
 import { TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import { 
   PublicKey,
+  Keypair,
   //Transaction,
   TransactionInstruction,
 } from "@solana/web3.js";
 import { connection } from './connection'
 import { sendTxUsingExternalSignature } from './externalwallet'
 import { getOrCreateAssociatedAccount } from "./getOrCreateAssociatedAccount";
-import { farmprogramID,farm_state, user_state_data_temp_acc, lp_mint  } from "./ids";
+import { farmprogramID,farm_state, user_state_data_id_acc, lp_mint  } from "./ids";
+import * as bs58 from "bs58";
+
 
 const BN = require("bn.js");
 
@@ -42,11 +45,12 @@ export const farm_lp_deposit = async(user, amount) => {
 //init escrow account
 
 
+
 const initDepositIx = new TransactionInstruction({
   programId: farmprogramID,
   keys: [
     { pubkey: user, isSigner: true, isWritable: false },
-    { pubkey: user_state_data_temp_acc, isSigner: false, isWritable: true },
+    { pubkey: user_state_data_id_acc, isSigner: false, isWritable: true },
     { pubkey: farm_state, isSigner: false, isWritable: true },
 
     { pubkey: user_tokenAccount, isSigner: false, isWritable: true },
