@@ -7,12 +7,9 @@ export const farmprogramID = new PublicKey(
 );
 
 export const routerProgramId = new PublicKey(
-    "6GBheUNats8dbucipnfiS2Xi6QZKJ9yKYgst8JJHdGfP"
+    "FT8X4dxvgRpxsiZwTEuQC4PYJBrJKuioJG8wW3MBd8a2"
 );
 
-export const new_routerProgramId = new PublicKey(
-    "HgktVTMCv7pp8xXiinHFsHa6zeGsY7YWjkn31uVSrZpg"
-);
 
 export const  token_swap_program_id = new PublicKey(
     "8eU8zdcLU7tEFHbj9KbrxS8jcB9vCEnECSL85pCawZtm"
